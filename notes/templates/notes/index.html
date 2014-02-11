@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Notes App</title>
+</head>
+<body>
+<h1>Welcome{% if user.is_authenticated %} {{ user.email }}{% endif %}!</h1>
+
+<p>This is the Notes App. Django powered!</p>
+
+<p>{{ date }}</p>
+</body>
+</html>
