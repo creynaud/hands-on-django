@@ -1,11 +1,16 @@
 {% extends "base.html" %}
 
+{% load staticfiles %}
+
 {% block head_title %}Notes{% endblock %}
 
 {% block content %}
-    <h1>Welcome{% if user.is_authenticated %} {{ user.email }}{% endif %}!</h1>
-
-    <p>This is the Notes App. Django powered!</p>
-
-    <p>{{ date }}</p>
+    <h1>Welcome!</h1>
+    <p>This is the Notes app, and it is Django powered!</p>
+    {% if user.is_authenticated %}
+        <p><a href="{% url "my_notes" %}">Have a look at your notes!</a></p>
+    {% else %}
+        <p><a href="{% url "account_login" %}">Please login to see your notes.</a></p>
+    {% endif %}
+    <a href="http://djangopony.com"><img src="{% static "notes/img/pony.png" %}"></a>
 {% endblock %}

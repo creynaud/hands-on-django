@@ -8,9 +8,11 @@ class HomeTests(WebTest):
         url = reverse('home')
         response = self.app.get(url)
         self.assertContains(response, 'Welcome!')
+        self.assertContains(response, 'Please login to see your notes')
 
     def test_home_authenticated(self):
         url = reverse('home')
         user = UserFactory()
         response = self.app.get(url, user=user)
-        self.assertContains(response, 'Welcome {0}!'.format(user.email))
+        self.assertContains(response, 'Welcome!')
+        self.assertContains(response, 'Have a look at your notes')
