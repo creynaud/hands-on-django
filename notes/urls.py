@@ -10,5 +10,6 @@ urlpatterns = patterns(
     # url(r'^blog/', include('blog.urls')),
     url(r'^notes/', include('notesapp.urls')),
     url(r'^accounts/', include('allauth.urls')),
+    url(r'^api/', include('api.urls')),
     url(r'^admin/', include(admin.site.urls)),
 )

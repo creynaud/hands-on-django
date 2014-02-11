@@ -5,6 +5,7 @@ dj-static==0.0.5
 django-allauth==0.15.0
 django-bootstrap3==2.5.6
 django-secure==1.0
+djangorestframework==2.3.12
 gunicorn==18.0
 oauthlib==0.6.1
 psycopg2==2.5.2
