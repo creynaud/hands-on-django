@@ -1,14 +1,18 @@
-{% extends "base.html" %}
+{% extends "notesapp/base.html" %}
+
+{% load bootstrap3 %}
 
 {% block head_title %}Edit Note{% endblock %}
 
-{% block content %}
+{% block content_right %}
     <h1>Edit note '{{ note.title }}'</h1>
 
     <form method="post" id="edit-note-form">
         {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Update">
-        <a href="{% url "note_detail" note.id %}">Cancel</a>
+        {% bootstrap_form form %}
+        {% buttons %}
+            <input type="submit" value="Update" class="btn btn-primary">
+            <a href="{% url "note_detail" note.id %}" class="btn btn-default">Cancel</a>
+        {% endbuttons %}
     </form>
 {% endblock %}

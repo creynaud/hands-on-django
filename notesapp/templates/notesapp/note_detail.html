@@ -1,9 +1,12 @@
-{% extends "base.html" %}
+{% extends "notesapp/base.html" %}
 
 {% block head_title %}{{ note.title }}{% endblock %}
 
-{% block content %}
-    <h1>{{ note.title }}</h1>
-    <a href="{% url "edit_note" note.id %}">Edit</a>
+{% block content_right %}
+    <h1>
+        {{ note.title }}
+        <a href="{% url "edit_note" note.id %}"><span class="glyphicon glyphicon-pencil"></span></a>
+        <a href=""><span class="glyphicon glyphicon-trash"></span></a>
+    </h1>
     <p>{{ note.content }}</p>
 {% endblock %}

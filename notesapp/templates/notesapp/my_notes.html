@@ -1,16 +1,14 @@
-{% extends "base.html" %}
+{% extends "notesapp/base.html" %}
 
 {% block head_title %}My notes{% endblock %}
 
-{% block content %}
-    <h1>My Notes</h1>
-    <ul>
-        {% if notes %}
-            {% for note in notes %}
-                <li>{{ note.title }}</li>
-            {% endfor %}
-        {% else %}
-            <p>There are no notes.</p>
-        {% endif %}
-    </ul>
+{% block content_right %}
+    {% if notes %}
+        <h1>
+        {{ notes.0.title }}
+        <a href="{% url "edit_note" notes.0.id %}"><span class="glyphicon glyphicon-pencil"></span></a>
+        <a href=""><span class="glyphicon glyphicon-trash"></span></a>
+    </h1>
+    <p>{{ notes.0.content }}</p>
+    {% endif %}
 {% endblock %}

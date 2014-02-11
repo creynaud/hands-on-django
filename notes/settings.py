@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'bootstrap3',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -90,6 +91,10 @@ STATIC_URL = '/static/'
 
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'notes/templates'),
+)
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'notes/static'),
 )
 
 SITE_ID = 1

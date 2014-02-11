@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-3">
+            {% block content_left %}
+                <h1>
+                    My Notes
+                    <a href=""><span class="glyphicon glyphicon-plus"></span></a>
+                </h1>
+                {% if notes %}
+                    <ul>
+                        {% for note in notes %}
+                            <li><a href="{% url "note_detail" note.id %}">{{ note.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>You don't have any note yet.</p>
+                {% endif %}
+            {% endblock %}
+        </div>
+        <div class="col-md-9">
+            {% block content_right %}{% endblock %}
+        </div>
+    </div>
+{% endblock %}
