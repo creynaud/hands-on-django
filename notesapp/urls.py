@@ -10,4 +10,5 @@ urlpatterns = patterns(
     '',
     url(r'^$', views.my_notes, name='my_notes'),
     url(r'^(?P<pk>\d+)/$', views.note_detail, name='note_detail'),
+    url(r'^edit/(?P<pk>\d+)/$', views.edit_note, name='edit_note'),
 )

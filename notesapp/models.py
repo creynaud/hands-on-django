@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
 from django.db import models
 
 
@@ -11,3 +12,6 @@ class Note(models.Model):
     content = models.TextField(blank=True)
     creation_date = models.DateTimeField(default=timezone.now)
     owner = models.ForeignKey(User)
+
+    def get_absolute_url(self):
+        return reverse('note_detail', args=[self.id])

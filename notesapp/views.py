@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.views.generic.detail import DetailView
+from django.views.generic.edit import UpdateView
 from django.views.generic.list import ListView
 
 from .models import Note
@@ -20,3 +21,11 @@ class NoteDetail(DetailView):
     template_name = 'notesapp/note_detail.html'
     context_object_name = 'note'
 note_detail = login_required(NoteDetail.as_view())
+
+
+class EditNote(UpdateView):
+    model = Note
+    template_name = 'notesapp/edit_note.html'
+    fields = ['title', 'content']
+edit_note = login_required(EditNote.as_view())
+

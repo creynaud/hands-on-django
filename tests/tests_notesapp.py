@@ -40,3 +40,26 @@ class NotesAppTests(WebTest):
         url = reverse('note_detail', args=[note.id])
         response = self.app.get(url)
         self.assertNotEqual(response.status_code, 200)
+
+    def test_edit_note_not_authenticated(self):
+        note = NoteFactory()
+
+        url = reverse('edit_note', args=[note.id])
+        response = self.app.get(url, user=note.owner)
+
+        form = response.forms['edit-note-form']
+        new_title = 'Updated Title'
+        form['title'] = new_title
+        new_content = 'Updated content.'
+        form['content'] = new_content
+
+        response = form.submit().follow()
+        self.assertContains(response, new_title)
+        self.assertContains(response, new_content)
+
+    def test_edit_note_not_authenticated(self):
+        note = NoteFactory()
+
+        url = reverse('edit_note', args=[note.id])
+        response = self.app.get(url)
+        self.assertNotEqual(response.status_code, 200)
