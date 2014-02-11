@@ -1,13 +1,14 @@
-from django.http.response import HttpResponse
-
-# Create your views here.
-from django.template import loader
-from django.template.context import RequestContext
+from django.contrib.auth.decorators import login_required
+from django.views.generic.list import ListView
 
 from .models import Note
 
 
-def notes(request):
-    template = loader.get_template('notesapp/notes.html')
-    context = RequestContext(request, {'notes': Note.objects.all()})
-    return HttpResponse(template.render(context))
+class MyNotes(ListView):
+    model = Note
+    template_name = 'notesapp/my_notes.html'
+    context_object_name = 'notes'
+
+    def get_queryset(self):
+        return Note.objects.filter(owner=self.request.user)
+my_notes = login_required(MyNotes.as_view())

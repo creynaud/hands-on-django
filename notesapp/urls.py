@@ -8,5 +8,5 @@ admin.autodiscover()
 
 urlpatterns = patterns(
     '',
-    url(r'^$', views.notes, name='notes'),
+    url(r'^$', views.my_notes, name='my_notes'),
 )
