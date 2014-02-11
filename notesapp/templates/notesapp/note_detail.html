@@ -1,10 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{{ note.title }}</title>
-</head>
-<body>
-<h1>{{ note.title }}</h1>
-<p>{{ note.content }}</p>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block head_title %}{{ note.title }}{% endblock %}
+
+{% block content %}
+    <h1>{{ note.title }}</h1>
+    <a href="{% url "edit_note" note.id %}">Edit</a>
+    <p>{{ note.content }}</p>
+{% endblock %}

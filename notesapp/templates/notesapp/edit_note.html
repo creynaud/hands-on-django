@@ -1,15 +1,14 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Edit Note</title>
-</head>
-<body>
-<h1>Edit note '{{ note.title }}'</h1>
+{% extends "base.html" %}
 
-<form method="post" id="edit-note-form">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Update">
-</form>
-</body>
-</html>
+{% block head_title %}Edit Note{% endblock %}
+
+{% block content %}
+    <h1>Edit note '{{ note.title }}'</h1>
+
+    <form method="post" id="edit-note-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Update">
+        <a href="{% url "note_detail" note.id %}">Cancel</a>
+    </form>
+{% endblock %}
