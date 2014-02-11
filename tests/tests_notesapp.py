@@ -1,4 +1,3 @@
-from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django_webtest import WebTest
 
@@ -41,7 +40,7 @@ class NotesAppTests(WebTest):
         response = self.app.get(url)
         self.assertNotEqual(response.status_code, 200)
 
-    def test_edit_note_not_authenticated(self):
+    def test_edit_note_authenticated(self):
         note = NoteFactory()
 
         url = reverse('edit_note', args=[note.id])

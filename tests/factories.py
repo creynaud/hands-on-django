@@ -10,11 +10,11 @@ from notesapp.models import Note
 class UserFactory(DjangoModelFactory):
     FACTORY_FOR = User
     username = Sequence(lambda n: 'some_email{0}@acme.com'.format(n))
-    
+
     @lazy_attribute
     def email(self):
         return self.username
-    
+
     @lazy_attribute
     def password(self):
         return "123"

@@ -91,7 +91,8 @@ class APITestAuthenticated(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertDictContainsSubset({'title': note.title}, response.data)
         self.assertDictContainsSubset({'content': note.content}, response.data)
-        self.assertDictContainsSubset({'creation_date': note.creation_date}, response.data)
+        self.assertDictContainsSubset({'creation_date': note.creation_date},
+                                      response.data)
 
     def test_delete_note(self):
         note = NoteFactory.create()
