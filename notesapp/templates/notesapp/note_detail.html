@@ -6,7 +6,7 @@
     <h1>
         {{ note.title }}
         <a href="{% url "edit_note" note.id %}"><span class="glyphicon glyphicon-pencil"></span></a>
-        <a href=""><span class="glyphicon glyphicon-trash"></span></a>
+        <a href="{% url "delete_note" note.id %}"><span class="glyphicon glyphicon-trash"></span></a>
     </h1>
     <p>{{ note.content }}</p>
 {% endblock %}

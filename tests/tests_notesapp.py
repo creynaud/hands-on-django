@@ -63,3 +63,70 @@ class NotesAppTests(WebTest):
         url = reverse('edit_note', args=[note.id])
         response = self.app.get(url)
         self.assertNotEqual(response.status_code, 200)
+
+    def test_add_note_authenticated(self):
+        user = UserFactory()
+
+        url = reverse('add_note')
+        response = self.app.get(url, user=user)
+
+        form = response.forms['add-note-form']
+        title = 'New Note Title'
+        form['title'] = title
+        content = 'New Note Content'
+        form['content'] = content
+
+        response = form.submit().follow()
+        self.assertContains(response, title)
+        self.assertContains(response, content)
+
+    def test_add_note_authenticated_no_content(self):
+        user = UserFactory()
+
+        url = reverse('add_note')
+        response = self.app.get(url, user=user)
+
+        form = response.forms['add-note-form']
+        title = 'New Note Title'
+        form['title'] = title
+
+        response = form.submit().follow()
+        self.assertIsNotNone(Note.objects.get(title=title))
+        self.assertContains(response, title)
+
+    def test_add_note_authenticated_no_title(self):
+        user = UserFactory()
+
+        url = reverse('add_note')
+        response = self.app.get(url, user=user)
+
+        form = response.forms['add-note-form']
+        content = 'New Note Content'
+        form['content'] = content
+
+        response = form.submit()
+        self.assertContains(response, 'This field is required')
+
+    def test_add_note_not_authenticated(self):
+        url = reverse('add_note')
+        response = self.app.get(url)
+        self.assertNotEqual(response.status_code, 200)
+
+    def test_delete_note_authenticated(self):
+        note = NoteFactory(title='Note to delete',
+                           content='Note to delete content')
+
+        url = reverse('delete_note', args=[note.id])
+        response = self.app.get(url, user=note.owner)
+
+        form = response.forms['delete-note-form']
+        response = form.submit().follow()
+
+        self.assertNotContains(response, note.title)
+        self.assertNotContains(response, note.content)
+
+    def test_delete_note_not_authenticated(self):
+        note = NoteFactory()
+        url = reverse('delete_note', args=[note.id])
+        response = self.app.get(url)
+        self.assertNotEqual(response.status_code, 200)

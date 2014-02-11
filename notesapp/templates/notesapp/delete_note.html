@@ -1,0 +1,17 @@
+{% extends "notesapp/base.html" %}
+
+{% load bootstrap3 %}
+
+{% block head_title %}Delete note '{{ note.title }}'{% endblock %}
+
+{% block content_right %}
+    <h1>Delete note '{{ note.title }}'</h1>
+    <p>Do you really want to delete the '{{ note.title }}' note?</p>
+    <form method="post" id="delete-note-form">
+        {% csrf_token %}
+        {% buttons %}
+            <input type="submit" value="Delete" class="btn btn-primary">
+            <a href="{% url "note_detail" note.id %}" class="btn btn-default">Cancel</a>
+        {% endbuttons %}
+    </form>
+{% endblock %}

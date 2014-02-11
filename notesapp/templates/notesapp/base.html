@@ -6,7 +6,7 @@
             {% block content_left %}
                 <h1>
                     My Notes
-                    <a href=""><span class="glyphicon glyphicon-plus"></span></a>
+                    <a href="{% url "add_note" %}"><span class="glyphicon glyphicon-plus"></span></a>
                 </h1>
                 {% if notes %}
                     <ul>

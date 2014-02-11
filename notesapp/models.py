@@ -13,5 +13,8 @@ class Note(models.Model):
     creation_date = models.DateTimeField(default=timezone.now)
     owner = models.ForeignKey(User)
 
+    class Meta:
+        ordering = ['-creation_date']
+
     def get_absolute_url(self):
         return reverse('note_detail', args=[self.id])
