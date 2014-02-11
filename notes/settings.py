@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 import dj_database_url
+import urlparse
 from django.core.urlresolvers import reverse_lazy
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -120,7 +121,20 @@ AUTHENTICATION_BACKENDS = (
     "allauth.account.auth_backends.AuthenticationBackend",
 )
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+smtp_url = os.environ.get('SMTP_URL')
+if smtp_url:
+    SERVER_EMAIL = DEFAULT_FROM_EMAIL = os.environ['FROM_EMAIL']
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    parsed_email_url = urlparse.urlparse(os.environ['SMTP_URL'])
+    EMAIL_HOST = parsed_email_url.hostname
+    EMAIL_PORT = parsed_email_url.port
+    if parsed_email_url.username:
+        EMAIL_HOST_USER = parsed_email_url.username
+    if parsed_email_url.password:
+        EMAIL_HOST_PASSWORD = parsed_email_url.password
+    EMAIL_USE_TLS = False
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 LOGIN_REDIRECT_URL = reverse_lazy('my_notes')
 
